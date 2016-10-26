@@ -11,6 +11,7 @@ module "s3" {
   service-cluster-ip-range = "${ var.cidr["service-cluster"] }"
 }
 
+/*
 module "vpc" {
   source = "./modules/vpc"
   depends-id = ""
@@ -20,7 +21,7 @@ module "vpc" {
   hyperkube-tag = "${ var.k8s["hyperkube-tag"] }"
   name = "${ var.name }"
   region = "${ var.aws["region"] }"
-}
+}*/
 
 module "security" {
   source = "./modules/security"
@@ -99,7 +100,7 @@ module "worker" {
   bucket-prefix = "${ var.s3-bucket }"
   capacity = {
     desired = 3
-    max = 5
+    max = 3
     min = 3
   }
   cluster-domain = "${ var.cluster-domain }"
@@ -115,8 +116,8 @@ module "worker" {
   security-group-id = "${ module.security.worker-id }"
   subnet-ids = "${ module.vpc.subnet-ids-private }"
   volume_size = {
-    ebs = 250
-    root = 52
+    ebs = 40
+    root = 40
   }
   vpc-id = "${ module.vpc.id }"
   worker-name = "general"

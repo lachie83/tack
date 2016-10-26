@@ -14,7 +14,7 @@ variable "cidr" {
     allow-ssh = "0.0.0.0/0"
     pods = "10.2.0.0/16"
     service-cluster = "10.3.0.0/24"
-    vpc = "10.0.0.0/16"
+    vpc = "172.25.0.0/16"
   }
 }
 variable "cluster-domain" { default = "cluster.local" }
@@ -30,15 +30,15 @@ variable "etcd-ips" { default = "10.0.10.10,10.0.11.10,10.0.12.10" }
 variable "instance-type" {
   default = {
     bastion = "t2.nano"
-    etcd = "m3.medium"
-    worker = "m3.medium"
+    etcd = "m4.large"
+    worker = "m4.large"
   }
 }
 variable "internal-tld" {}
 variable "k8s" {
   default = {
     hyperkube-image = "quay.io/coreos/hyperkube"
-    hyperkube-tag = "v1.4.0_coreos.2"
+    hyperkube-tag = "v1.3.8_coreos.1"
   }
 }
 variable "k8s-service-ip" { default = "10.3.0.1" }
@@ -66,4 +66,4 @@ output "region" { value = "${ var.aws["region"] }" }
 output "s3-bucket" { value = "${ var.s3-bucket }" }
 output "subnet-ids-private" { value = "${ module.vpc.subnet-ids-private }" }
 output "subnet-ids-public" { value = "${ module.vpc.subnet-ids-public }" }
-output "worker-autoscaling-group-name" { value = "${ module.worker.autoscaling-group-name }" }
+# output "worker-autoscaling-group-name" { value = "${ module.worker.autoscaling-group-name }" }
